@@ -1,0 +1,23 @@
+.login-container
+{
+	height: 100vh;
+}
+.logo-container
+{
+	margin-bottom: 25px;
+}
+.logo-container img
+{
+	width: 200px;
+	max-width: 100%;
+}
+.jumbotron
+{
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
