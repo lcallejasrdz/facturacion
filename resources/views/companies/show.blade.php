@@ -44,7 +44,7 @@
                                     <td>{{ $company->name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Dispersora</th>
+                                    <th>Facturadora</th>
                                     <td>{{ $company->disperser }}</td>
                                 </tr>
                             </tbody>

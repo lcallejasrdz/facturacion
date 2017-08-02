@@ -42,7 +42,7 @@
                             <thead>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Dispersora</th>
+                                <th>Facturadora</th>
                                 <th>Creado</th>
                                 <th>Eliminado</th>
                                 <th>Acciones</th>
