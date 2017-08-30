@@ -16,6 +16,14 @@
   </head>
   <body>
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+          @include('alerts.ajax')
+          @include('alerts.errors')
+          @include('alerts.error')
+          @include('alerts.success')
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-4 col-md-offset-4 login-container">
           <div class="jumbotron">

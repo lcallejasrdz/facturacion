@@ -12,10 +12,17 @@ use Session;
 use Carbon\Carbon;
 use App\User;
 use App\Permissions;
+use App\AdministratorCompanies;
+use App\Companies;
 use Datatables;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permissionsUsers');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +36,12 @@ class UsersController extends Controller
     public function dataindex()
     {
         Carbon::setLocale('es');
-        $users = User::where('id', '>', 1)->where('id', '!=', Auth::user()->id)->get(['id', 'name', 'username', 'email', 'created_at']);
+        $users = User::where('id', '>', 1)->where('id', '!=', Auth::user()->id)->get(['id', 'name', 'username', 'email', 'permission', 'created_at']);
+
+        foreach($users as $user)
+        {
+            $user->permission = Permissions::find($user->permission)->name;
+        }
 
         return Datatables::of($users)
             ->edit_column('created_at','{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
@@ -51,8 +63,16 @@ class UsersController extends Controller
     public function create()
     {
         $permissions = Permissions::where('id', '>', 1)->lists('name', 'id');
+        $companies = Companies::whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                      ->from('administrator_companies')
+                      ->whereNull('administrator_companies.deleted_at')
+                      ->whereRaw('administrator_companies.company = companies.id');
+            })
+            ->lists('name', 'id');
+        $companiesselected[] = null;
 
-        return view('users.create', compact('permissions'));
+        return view('users.create', compact('permissions', 'companies', 'companiesselected'));
     }
 
     /**
@@ -63,13 +83,25 @@ class UsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        User::create([
+        $user = User::create([
             'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'permission' => $request->permission
         ]);
+
+        // Empresas si es administrador
+        if($request->permission == 3)
+        {
+            foreach($request->companies as $company)
+            {
+                AdministratorCompanies::create([
+                    'user' => $user->id,
+                    'company' => $company
+                ]);
+            }
+        }
 
         return Redirect::to('users')->with('success', 'Usuario creado exitosamente');
     }
@@ -83,9 +115,15 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $user->permission = Permissions::find($user->permission)->name;
+        $user->permissionname = Permissions::find($user->permission)->name;
 
-        return view('users.show', compact('user'));
+        $companies = AdministratorCompanies::where('user', $user->id)->get();
+        foreach($companies as $company)
+        {
+            $company->company = Companies::find($company->company)->name;
+        }
+
+        return view('users.show', compact('user', 'companies'));
     }
 
     /**
@@ -96,7 +134,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->id == 1)
+        if($id == 1)
         {
             $permissions = Permissions::lists('name', 'id');
         }
@@ -106,7 +144,36 @@ class UsersController extends Controller
         }
         $user = User::find($id);
 
-        return view('users.edit', compact('permissions', 'user'));
+        $companies = Companies::whereNotExists(function ($query) use ($user) {
+                $query->select(DB::raw(1))
+                      ->from('administrator_companies')
+                      ->whereNull('administrator_companies.deleted_at')
+                      ->whereRaw('administrator_companies.user != '.$user->id)
+                      ->whereRaw('administrator_companies.company = companies.id');
+            })
+            ->lists('name', 'id');
+
+        if($user->permission == 3)
+        {
+            $administratorcompanies = AdministratorCompanies::where('user', $user->id)->get();
+            if(count($administratorcompanies) > 0)
+            {
+                foreach($administratorcompanies as $company)
+                {
+                    $companiesselected[] = $company->company;
+                }
+            }
+            else
+            {
+                $companiesselected[] = null;
+            }
+        }
+        else
+        {
+            $companiesselected[] = null;
+        }
+
+        return view('users.edit', compact('permissions', 'user', 'companies', 'companiesselected'));
     }
 
     /**
@@ -119,6 +186,22 @@ class UsersController extends Controller
     public function update(UsersRequest $request, $id)
     {
         $user = User::find($id);
+
+        if($user->permission == 3)
+        {
+            AdministratorCompanies::where('user', $user->id)->delete();
+            if($request->permission == 3)
+            {
+                foreach($request->companies as $company)
+                {
+                    AdministratorCompanies::create([
+                        'user' => $user->id,
+                        'company' => $company
+                    ]);
+                }
+            }
+        }
+
         $user->update($request->all());
 
         return Redirect::to('users/'.$user->id)->with('success', 'Usuario actualizado exitosamente');
@@ -134,9 +217,21 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
+        if($user->permission == 3)
+        {
+            AdministratorCompanies::where('user', $user->id)->delete();
+        }
+
         $user->delete();
 
-        Session::flash('success', 'Usuario eliminado correctamente.');
+        if($user->permission == 3)
+        {
+            Session::flash('success', 'Usuario eliminado correctamente. Sus empresas fuerón liberadas.');
+        }
+        else
+        {
+            Session::flash('success', 'Usuario eliminado correctamente.');
+        }
 
         return response()->json([
             "message" => "deleted"
@@ -153,14 +248,14 @@ class UsersController extends Controller
         return view('users.deleted');
     }
 
-    public function datadeleted(Request $request)
+    public function datadeleted()
     {
         Carbon::setLocale('es');
         $users = User::onlyTrashed()->get();
         return Datatables::of($users)
             ->edit_column('created_at','{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
             ->edit_column('deleted_at','{!! \Carbon\Carbon::parse($deleted_at)->diffForHumans() !!}')
-            ->add_column('actions',function($user) {
+            ->add_column('actions', function($user) {
                 $actions = '<a href="/users/'. $user->id .'/restore" class="text-warning"><i class="fa fa-fw fa-plus-square-o"></i></a>';
                 return $actions;
             })
@@ -178,7 +273,13 @@ class UsersController extends Controller
         $user = User::withTrashed()->find($id);
 
         $user->restore();
-
-        return Redirect::to('users')->with('success', 'Usuario restaurado correctamente');
+        
+        if($user->permission == 3)
+        {
+            return Redirect::to('users')->with('success', 'Usuario restaurado correctamente. Recuerda asignarle empresas a este usuario');
+        }
+        else{
+            return Redirect::to('users')->with('success', 'Usuario restaurado correctamente');
+        }
     }
 }

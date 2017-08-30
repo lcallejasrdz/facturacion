@@ -37,7 +37,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover table-condensed" id="table">
+                        <table class="table table-striped table-bordered table-hover table-condensed">
                             <tbody>
                                 <tr>
                                     <th>Usuario</th>
@@ -53,11 +53,29 @@
                                 </tr>
                                 <tr>
                                     <th>Permisos</th>
-                                    <td>{{ $user->permission }}</td>
+                                    <td>{{ $user->permissionname }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    @if($user->permission == 3)
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Empresas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($companies as $company)
+                                        <tr>
+                                            <td>{{ $company->company }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

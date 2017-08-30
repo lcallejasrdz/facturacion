@@ -25,6 +25,7 @@
 	    {{ Html::style('sbadmin/font-awesome/css/font-awesome.min.css') }}
 
 	    {{ Html::style('assets/css/template.css') }}
+    	{{ Html::style('assets/css/custom.css') }}
 
 	    @yield('styles')
 
@@ -66,7 +67,9 @@
 	            <div class="container-fluid">
 				    <div class="row">
 				        <div class="col-lg-12">
+							@include('alerts.ajax')
 							@include('alerts.errors')
+							@include('alerts.error')
 							@include('alerts.success')
 						</div>
 					</div>
@@ -84,11 +87,11 @@
 	    <!-- Bootstrap Core JavaScript -->
 	    {{ Html::script('sbadmin/js/bootstrap.min.js') }}
 
+	    @yield('scripts')
+
 	    <!-- Morris Charts JavaScript -->
 	    {{ Html::script('sbadmin/js/plugins/morris/raphael.min.js') }}
 	    {{ Html::script('sbadmin/js/plugins/morris/morris.min.js') }}
 	    {{ Html::script('sbadmin/js/plugins/morris/morris-data.js') }}
-
-	    @yield('scripts')
 	</body>
 </html>

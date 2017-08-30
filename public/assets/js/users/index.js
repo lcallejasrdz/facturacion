@@ -7,6 +7,7 @@ $(function() {
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
             { data: 'email', name: 'email' },
+            { data: 'permission', name: 'permission' },
             { data: 'created_at', name:'created_at', orderable: false, searchable: false },
             { data: 'actions', name: 'actions', orderable: false, searchable: false }
         ],

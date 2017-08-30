@@ -1,0 +1,94 @@
+<div class="form-group">
+    {{ Form::text('customer', old('customer'), ['id' => 'customer', 'class' => 'form-control', 'placeholder' => 'Cliente']) }}
+</div>
+<hr>
+<div class="form-group col-md-6">
+    {{ Form::select('', $companies, null, ['id' => 'entry-to-input', 'class' => 'form-control', 'placeholder' => 'Empresa receptora...']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'entry-quantity-input', 'class' => 'form-control money-input', 'placeholder' => 'Monto']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'entry-bank-input', 'class' => 'form-control', 'placeholder' => 'Banco']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'entry-account-input', 'class' => 'form-control', 'placeholder' => 'Cuenta']) }}
+</div>
+<div class="form-group text-right">
+    {{ Form::button('Agregar', ['id' => 'add-entry', 'class' => 'btn btn-primary']) }}
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed" id="entry-table">
+        <thead>
+            <tr>
+                <th class="text-center">Empresa</th>
+                <th class="text-center">Monto</th>
+                <th class="text-center">Banco</th>
+                <th class="text-center">Cuenta</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="text-right">Total</th>
+                <th class="text-right"><input type="hidden" name="entry_total" id="entry_total" value="0" /><span id="entry-table-total">$0.00</span></th>
+                <th colspan="3"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<hr>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-disperser-input', 'class' => 'form-control', 'placeholder' => 'Dispersora']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-bank-origen-input', 'class' => 'form-control', 'placeholder' => 'Banco / Cuenta Dispersora']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::select('', ['Transferencia' => 'Transferencia', 'Efectivo' => 'Efectivo', 'Comision' => 'Comision'], null, ['id' => 'output-type-input', 'class' => 'form-control', 'placeholder' => 'Tipo...']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-quantity-input', 'class' => 'form-control money-input', 'placeholder' => 'Monto']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-company-input', 'class' => 'form-control', 'placeholder' => 'Recibe']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-bank-destiny-input', 'class' => 'form-control', 'placeholder' => 'Banco / Cuenta Recibe']) }}
+</div>
+<div class="form-group col-md-12">
+    {{ Form::textarea('', null, ['id' => 'output-comment-input', 'class' => 'form-control', 'placeholder' => 'Comentario']) }}
+</div>
+<div class="form-group text-right">
+    {{ Form::button('Agregar', ['id' => 'add-output', 'class' => 'btn btn-primary']) }}
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed" id="output-table">
+        <thead>
+            <tr>
+                <th class="text-center">Dispersora</th>
+                <th class="text-center">Banco / Cuenta Dispersora</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Monto</th>
+                <th class="text-center">Recibe</th>
+                <th class="text-center">Banco / Cuenta Recibe</th>
+                <th class="text-center">Comentario</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th class="text-right" colspan="3">Total</th>
+                <th class="text-right"><input type="hidden" name="output_total" id="output_total" value="0" /><span id="output-table-total">$0.00</span></th>
+                <th colspan="4"></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<hr>

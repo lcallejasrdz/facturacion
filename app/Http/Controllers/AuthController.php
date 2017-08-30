@@ -21,7 +21,7 @@ class AuthController extends Controller
             return Redirect::to('dashboard');
         }
     	
-    	return Redirect::back();
+    	return Redirect::back()->with('error', 'Estas credenciales no coinciden con nuestros registros.');
     }
 
     public function logout()

@@ -51,4 +51,5 @@
 @endsection
 
 @section('scripts')
+    {{ Html::script('assets/js/users/form.js') }}
 @endsection

@@ -35,5 +35,25 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'operations',
             'name' => 'Operaciones'
         ]);
+
+        DB::table('permissions')->insert([
+            'slug' => 'dispersions_direction',
+            'name' => 'Dirección de Dispersiones'
+        ]);
+
+        DB::table('permissions')->insert([
+            'slug' => 'dispersions',
+            'name' => 'Dispersiones'
+        ]);
+
+        DB::table('permissions')->insert([
+            'slug' => 'banks_direction',
+            'name' => 'Dirección de Bancos'
+        ]);
+
+        DB::table('permissions')->insert([
+            'slug' => 'banks',
+            'name' => 'Bancos'
+        ]);
     }
 }

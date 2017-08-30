@@ -38,6 +38,7 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
+                                <th>Permisos</th>
                                 <th>Creado</th>
                                 <th>Acciones</th>
                             </thead>

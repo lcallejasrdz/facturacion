@@ -11,10 +11,15 @@ use Auth;
 use Session;
 use Carbon\Carbon;
 use App\Companies;
+use App\AdministratorCompanies;
 use Datatables;
 
 class CompaniesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('permissionsCompanies');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -29,6 +34,14 @@ class CompaniesController extends Controller
     {
         Carbon::setLocale('es');
         $companies = Companies::get(['id', 'name', 'disperser', 'created_at']);
+
+        foreach($companies as $company){
+            if($company->disperser == 'Si'){
+                $company->disperser = 'Dispersora';
+            }else{
+                $company->disperser = 'Empresa';
+            }
+        }
 
         return Datatables::of($companies)
             ->edit_column('created_at','{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
@@ -121,6 +134,12 @@ class CompaniesController extends Controller
 
         $company->delete();
 
+        $companies = AdministratorCompanies::where('company', $id)->get();
+
+        foreach($companies as $company){
+            $company->delete();
+        }
+
         Session::flash('success', 'Empresa eliminada correctamente.');
 
         return response()->json([
@@ -142,6 +161,15 @@ class CompaniesController extends Controller
     {
         Carbon::setLocale('es');
         $companies = Companies::onlyTrashed()->get();
+
+        foreach($companies as $company){
+            if($company->disperser == 'Si'){
+                $company->disperser = 'Dispersora';
+            }else{
+                $company->disperser = 'Empresa';
+            }
+        }
+
         return Datatables::of($companies)
             ->edit_column('created_at','{!! \Carbon\Carbon::parse($created_at)->diffForHumans() !!}')
             ->edit_column('deleted_at','{!! \Carbon\Carbon::parse($deleted_at)->diffForHumans() !!}')
@@ -165,5 +193,19 @@ class CompaniesController extends Controller
         $company->restore();
 
         return Redirect::to('companies')->with('success', 'Empresa restaurada correctamente');
+    }
+
+    public function isFacturation(Request $request, $id)
+    {
+        if($request->ajax()){
+            $company = Companies::find($id);
+            $result = 0;
+            if($company->disperser == 'Si'){
+                $result = 1;
+            }else{
+                $result = 0;
+            }
+            return response()->json($result);
+        }
     }
 }

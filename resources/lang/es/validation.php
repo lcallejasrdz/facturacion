@@ -106,6 +106,10 @@ return [
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
         ],
+
+        'companies' => [
+            'required_if' => 'El campo :attribute es obligatorio cuando :other es Administrador de Empresas.',
+        ],
     ],
 
     /*
@@ -153,6 +157,7 @@ return [
 
         'permissions'           => 'permisos',
         'permission'            => 'permisos',
+        'companies'             => 'empresas',
     ],
 
 ];

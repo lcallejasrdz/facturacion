@@ -37,7 +37,8 @@ class UsersRequest extends Request
                     'email' => 'required|email|unique:users,email|max:300',
                     'password' => 'required|between:6,16',
                     'password_confirmation' => 'required|same:password',
-                    'permission' => 'required'
+                    'permission' => 'required',
+                    'companies' => 'required_if:permission,3'
                 ];
             }
             case 'PUT': {
@@ -47,7 +48,8 @@ class UsersRequest extends Request
                     'email' => 'required|email|unique:users,email,'.$this->users.'|max:300',
                     'password' => 'between:6,16',
                     'password_confirmation' => 'same:password',
-                    'permission' => 'required'
+                    'permission' => 'required',
+                    'companies' => 'required_if:permission,3'
                 ];
             }
             case 'PATCH': {

@@ -6,9 +6,22 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateAdministratorCompaniesTable' => $baseDir . '/database/migrations/2017_08_02_110404_create_administrator_companies_table.php',
     'CreateCompaniesTable' => $baseDir . '/database/migrations/2017_08_02_004620_create_companies_table.php',
+    'CreateDirectsMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_12_203515_create_directs_movements_entries_table.php',
+    'CreateDirectsMovementsFacturationsTable' => $baseDir . '/database/migrations/2017_08_17_171314_create_directs_movements_facturations_table.php',
+    'CreateDirectsMovementsOutputsTable' => $baseDir . '/database/migrations/2017_08_12_205035_create_directs_movements_outputs_table.php',
+    'CreateDirectsMovementsTable' => $baseDir . '/database/migrations/2017_08_02_195255_create_directs_movements_table.php',
+    'CreateLendingsTable' => $baseDir . '/database/migrations/2017_08_25_153425_create_lendings_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePayrollsMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_22_201656_create_payrolls_movements_entries_table.php',
+    'CreatePayrollsMovementsFacturationsTable' => $baseDir . '/database/migrations/2017_08_22_201728_create_payrolls_movements_facturations_table.php',
+    'CreatePayrollsMovementsTable' => $baseDir . '/database/migrations/2017_08_22_201630_create_payrolls_movements_table.php',
     'CreatePermissionsTable' => $baseDir . '/database/migrations/2017_07_31_222350_create_permissions_table.php',
+    'CreateSimplesMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_22_154718_create_simples_movements_entries_table.php',
+    'CreateSimplesMovementsFacturationsTable' => $baseDir . '/database/migrations/2017_08_22_154738_create_simples_movements_facturations_table.php',
+    'CreateSimplesMovementsOutputsTable' => $baseDir . '/database/migrations/2017_08_22_154728_create_simples_movements_outputs_table.php',
+    'CreateSimplesMovementsTable' => $baseDir . '/database/migrations/2017_08_22_154706_create_simples_movements_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

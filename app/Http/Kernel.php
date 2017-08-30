@@ -49,5 +49,12 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'permissionsUsers' => \App\Http\Middleware\PermissionsUsers::class,
+        'permissionsCompanies' => \App\Http\Middleware\PermissionsCompanies::class,
+        'permissionsDirectsMovements' => \App\Http\Middleware\PermissionsDirectsMovements::class,
+        'permissionsSimplesMovements' => \App\Http\Middleware\PermissionsSimplesMovements::class,
+        'permissionsPayrollsMovements' => \App\Http\Middleware\PermissionsPayrollsMovements::class,
+        'permissionsLendings' => \App\Http\Middleware\PermissionsLendings::class,
     ];
 }

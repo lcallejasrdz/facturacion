@@ -37,7 +37,7 @@
                             <thead>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Facturadora</th>
+                                <th>Tipo</th>
                                 <th>Creado</th>
                                 <th>Acciones</th>
                             </thead>

@@ -8,13 +8,12 @@ function DeleteShow(id, name, title, url){
 
 function DeleteAction(btn){
     var modal_url = $('#modalUrl').val();
-    var route = "/"+modal_url+"/"+btn.value;
+    var route = "/"+modal_url+"/"+btn.value+"/delete";
     var token = $('#token').val();
 
     $.ajax({
         url: route,
-        headers: {'X-CSRF-TOKEN': token},
-        type: 'DELETE',
+        type: 'GET',
         dataType: 'json',
         success: function(){
             document.location.href="/"+modal_url;
