@@ -63,7 +63,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/facturations-rollback','DirectsMovementsController@facturationsRollback');
         Route::get('{id}/movement-rollback','DirectsMovementsController@movementRollback');
         Route::get('{id}/delete-payment-entry','DirectsMovementsController@deletePaymentEntry');
-        Route::get('{id}/delete','DirectsMovementsController@destroy');
     });
     Route::resource('directs-movements', 'DirectsMovementsController');
 
@@ -87,7 +86,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/facturations-rollback','SimplesMovementsController@facturationsRollback');
         Route::get('{id}/movement-rollback','SimplesMovementsController@movementRollback');
         Route::get('{id}/delete-payment-entry','SimplesMovementsController@deletePaymentEntry');
-        Route::get('{id}/delete','SimplesMovementsController@destroy');
     });
     Route::resource('simples-movements', 'SimplesMovementsController');
 
@@ -111,7 +109,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/facturations-rollback','PayrollsMovementsController@facturationsRollback');
         Route::get('{id}/movement-rollback','PayrollsMovementsController@movementRollback');
         Route::get('{id}/delete-payment-entry','PayrollsMovementsController@deletePaymentEntry');
-        Route::get('{id}/delete','PayrollsMovementsController@destroy');
     });
     Route::resource('payrolls-movements', 'PayrollsMovementsController');
 
@@ -125,7 +122,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/banks-receipt','LendingsController@showBanksReceipt');
         Route::post('banks-receipt','LendingsController@storeBanksReceipt');
         Route::get('{id}/movement-rollback','LendingsController@movementRollback');
-        Route::get('{id}/delete','LendingsController@destroy');
     });
     Route::resource('lendings', 'LendingsController');
 });
