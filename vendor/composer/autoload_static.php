@@ -296,6 +296,7 @@ class ComposerStaticInitd57019bcfa6d4f954d8196774df18b8c
     );
 
     public static $classMap = array (
+        'CompaniesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CompaniesTableSeeder.php',
         'CreateAdministratorCompaniesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_02_110404_create_administrator_companies_table.php',
         'CreateCompaniesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_02_004620_create_companies_table.php',
         'CreateDirectsMovementsEntriesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_12_203515_create_directs_movements_entries_table.php',
@@ -306,6 +307,7 @@ class ComposerStaticInitd57019bcfa6d4f954d8196774df18b8c
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePayrollsMovementsEntriesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_22_201656_create_payrolls_movements_entries_table.php',
         'CreatePayrollsMovementsFacturationsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_22_201728_create_payrolls_movements_facturations_table.php',
+        'CreatePayrollsMovementsOutputsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_04_223402_create_payrolls_movements_outputs_table.php',
         'CreatePayrollsMovementsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_22_201630_create_payrolls_movements_table.php',
         'CreatePermissionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_31_222350_create_permissions_table.php',
         'CreateSimplesMovementsEntriesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_22_154718_create_simples_movements_entries_table.php',
@@ -820,6 +822,7 @@ class ComposerStaticInitd57019bcfa6d4f954d8196774df18b8c
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PermissionsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PermissionsTableSeeder.php',
+        'RootUsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/RootUsersTableSeeder.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',

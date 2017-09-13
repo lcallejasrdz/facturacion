@@ -39,6 +39,8 @@ class PermissionsLendings
             return $next($request);
         }else if($permission == 9){
             return $next($request);
+        }else if($permission == 10){
+            return $next($request);
         }else{
             return Redirect::back();
         }

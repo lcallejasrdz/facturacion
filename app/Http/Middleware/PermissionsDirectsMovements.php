@@ -167,6 +167,20 @@ class PermissionsDirectsMovements
             }else{
                 return Redirect::back();
             }
+        }else if($permission == 10){
+            if($routename == 'index'){
+                return $next($request);
+            }else if($routename == 'dataindex'){
+                return $next($request);
+            }else if($routename == 'showFinished'){
+                return $next($request);
+            }else if($routename == 'datafinished'){
+                return $next($request);
+            }else if($routename == 'show'){
+                return $next($request);
+            }else{
+                return Redirect::back();
+            }
         }else{
             return Redirect::back();
         }

@@ -39,7 +39,7 @@ class DirectsMovementsController extends Controller
 
         $permission = Auth::user()->permission;
 
-        if($permission == 1 || $permission == 2 || $permission == 5){
+        if($permission == 1 || $permission == 2 || $permission == 5 || $permission == 10){
             $directsmovements = DirectsMovements::where('status', '!=', 5)->get(['id', 'customer', 'status', 'facturation_payments', 'user', 'created_at']);
         }else if($permission == 3){
             $directsmovements = DirectsMovements::whereExists(function ($query) {
@@ -82,7 +82,7 @@ class DirectsMovementsController extends Controller
                     $actions .= '<a href='. url('directs-movements/'. $directmovement->id .'/banks-payment') .' class="text-success"><i class="fa fa-fw fa-usd"></i></a>';
                 }
                 if($permission == 7){
-                    if($directmovement->status == 'Bancos - Comprobantes de Pagos'){
+                    if($directmovement->status == 'Bancos - Comprobantes de Pagos' || $directmovement->status == 'Finalizado'){
                         $actions .= '<a href='. url('directs-movements/'. $directmovement->id .'/create-facturations-invoices') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
                     }else{
                         $actions .= '<a href='. url('directs-movements/'. $directmovement->id .'/create-facturations') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';

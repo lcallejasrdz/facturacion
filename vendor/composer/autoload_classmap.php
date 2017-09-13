@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CompaniesTableSeeder' => $baseDir . '/database/seeds/CompaniesTableSeeder.php',
     'CreateAdministratorCompaniesTable' => $baseDir . '/database/migrations/2017_08_02_110404_create_administrator_companies_table.php',
     'CreateCompaniesTable' => $baseDir . '/database/migrations/2017_08_02_004620_create_companies_table.php',
     'CreateDirectsMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_12_203515_create_directs_movements_entries_table.php',
@@ -16,6 +17,7 @@ return array(
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePayrollsMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_22_201656_create_payrolls_movements_entries_table.php',
     'CreatePayrollsMovementsFacturationsTable' => $baseDir . '/database/migrations/2017_08_22_201728_create_payrolls_movements_facturations_table.php',
+    'CreatePayrollsMovementsOutputsTable' => $baseDir . '/database/migrations/2017_09_04_223402_create_payrolls_movements_outputs_table.php',
     'CreatePayrollsMovementsTable' => $baseDir . '/database/migrations/2017_08_22_201630_create_payrolls_movements_table.php',
     'CreatePermissionsTable' => $baseDir . '/database/migrations/2017_07_31_222350_create_permissions_table.php',
     'CreateSimplesMovementsEntriesTable' => $baseDir . '/database/migrations/2017_08_22_154718_create_simples_movements_entries_table.php',
@@ -530,6 +532,7 @@ return array(
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PermissionsTableSeeder' => $baseDir . '/database/seeds/PermissionsTableSeeder.php',
+    'RootUsersTableSeeder' => $baseDir . '/database/seeds/RootUsersTableSeeder.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',

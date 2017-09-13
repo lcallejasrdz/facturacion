@@ -39,7 +39,7 @@ class SimplesMovementsController extends Controller
 
         $permission = Auth::user()->permission;
 
-        if($permission == 1 || $permission == 2 || $permission == 5){
+        if($permission == 1 || $permission == 2 || $permission == 5 || $permission == 10){
             $simplesmovements = SimplesMovements::where('status', '!=', 5)->get(['id', 'customer', 'status', 'facturation_payments', 'user', 'created_at']);
         }else if($permission == 3){
             $simplesmovements = SimplesMovements::whereExists(function ($query) {
@@ -82,17 +82,17 @@ class SimplesMovementsController extends Controller
                     $actions .= '<a href='. url('simples-movements/'. $simplemovement->id .'/banks-payment') .' class="text-success"><i class="fa fa-fw fa-usd"></i></a>';
                 }
                 if($permission == 7){
-                    if($directmovement->status == 'Bancos - Comprobantes de Pagos'){
+                    if($simplemovement->status == 'Bancos - Comprobantes de Pagos' || $simplemovement->status == 'Finalizado'){
                         $actions .= '<a href='. url('simples-movements/'. $simplemovement->id .'/create-facturations-invoices') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
                     }else{
                         $actions .= '<a href='. url('simples-movements/'. $simplemovement->id .'/create-facturations') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
                     }
                 }
                 if($permission == 9 && $simplemovement->status == 'Bancos - Comprobantes de Pagos'){
-                    if($directmovement->facturation_payments == 0){
-                        $actions .= '<a href='. url('simples-movements/'. $directmovement->id .'/facturations-payment') .' class="text-success"><i class="fa fa-fw fa-usd"></i></a>';
+                    if($simplemovement->facturation_payments == 0){
+                        $actions .= '<a href='. url('simples-movements/'. $simplemovement->id .'/facturations-payment') .' class="text-success"><i class="fa fa-fw fa-usd"></i></a>';
                     }else{
-                        $actions .= '<a href='. url('simples-movements/'. $directmovement->id .'/outputs-receipts') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
+                        $actions .= '<a href='. url('simples-movements/'. $simplemovement->id .'/outputs-receipts') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
                     }
                 }
 

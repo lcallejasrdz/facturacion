@@ -107,6 +107,29 @@
                         </div>
                         {{ Form::hidden('movement_id', $movement->id) }}
                     {{ Form::close() }}
+
+                    <h3 class="panel-title">Salidas</h3><br>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Dispersora</th>
+                                    <th class="text-center">Banco / Cuenta Dispersora</th>
+                                    <th class="text-center">Comentario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($outputs as $output)
+                                    <tr>
+                                        <td>{{ $output->disperser }}</td>
+                                        <td>{{ $output->bank_origen }}</td>
+                                        <td>{{ $output->comment }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

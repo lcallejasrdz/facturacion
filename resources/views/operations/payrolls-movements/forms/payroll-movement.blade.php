@@ -41,3 +41,31 @@
     </table>
 </div>
 <hr>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-disperser-input', 'class' => 'form-control', 'placeholder' => 'Dispersora']) }}
+</div>
+<div class="form-group col-md-6">
+    {{ Form::text('', null, ['id' => 'output-bank-origen-input', 'class' => 'form-control', 'placeholder' => 'Banco / Cuenta Dispersora']) }}
+</div>
+<div class="form-group col-md-12">
+    {{ Form::textarea('', null, ['id' => 'output-comment-input', 'class' => 'form-control', 'placeholder' => 'Comentario']) }}
+</div>
+<div class="form-group text-right">
+    {{ Form::button('Agregar', ['id' => 'add-output', 'class' => 'btn btn-primary']) }}
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed" id="output-table">
+        <thead>
+            <tr>
+                <th class="text-center">Dispersora</th>
+                <th class="text-center">Banco / Cuenta Dispersora</th>
+                <th class="text-center">Comentario</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
+<hr>

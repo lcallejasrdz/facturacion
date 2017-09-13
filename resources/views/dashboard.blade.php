@@ -106,6 +106,35 @@
         </div>
     </div>
     <!-- /.row -->
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-file-text fa-fw"></i> Lista de Préstamos</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover table-condensed" id="lendings-table">
+                            <thead>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Empresa</th>
+                                <th>Monto</th>
+                                <th>Estatus</th>
+                                <th>Fecha</th>
+                                <th>Creado</th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
 @endsection
 
 @section('scripts')

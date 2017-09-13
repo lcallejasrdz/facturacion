@@ -29,6 +29,9 @@
 
 	    @yield('styles')
 
+        {{-- <script>
+            var direction = 'http://{{ $_SERVER['HTTP_HOST'] }}';
+        </script> --}}
         <script>
             var direction = '{{ env('APP_URL') }}';
         </script>

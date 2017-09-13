@@ -75,6 +75,61 @@ $('#add-entry').click(function(){
 	}
 });
 
+$('#add-output').click(function(){
+	var output_disperser_input = $('#output-disperser-input').val();
+	var output_bank_origen_input = $('#output-bank-origen-input').val();
+	var output_comment_input = $('#output-comment-input').val();
+
+	if(output_disperser_input == '' || output_bank_origen_input == '')
+	{
+		var alert = '<div class="alert alert-danger alert-dismissible" role="alert">';
+				alert += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+					alert+= '<span aria-hidden="true">&times;</span>';
+				alert+= '</button>';
+				alert+= '<ul>';
+					if(output_disperser_input == ''){
+						alert+= '<li>El campo dispersora es obligatorio</li>';
+					}
+					if(output_bank_origen_input == ''){
+						alert+= '<li>El campo banco / cuenta dispersora es obligatorio</li>';
+					}
+				alert+= '</ul>';
+			alert+= '</div>';
+
+		$('#ajax-alert').html(alert);
+		$("html, body").animate({ scrollTop: 0 }, "slow");
+	}
+	else
+	{
+		$('#output-disperser-input').val('');
+		$('#output-bank-origen-input').val('');
+		$('#output-comment-input').val('');
+
+		//pasar los valores a la tabla
+		var rows = $('#output-table tbody').html();
+
+		rows += '<tr>';
+			rows += '<td>';
+				rows += '<input type="hidden" name="output_disperser[]" value="'+ output_disperser_input +'" />';
+				rows += output_disperser_input;
+			rows += '</td>';
+			rows += '<td>';
+				rows += '<input type="hidden" name="output_bank_origen[]" value="'+ output_bank_origen_input +'" />';
+				rows += output_bank_origen_input;
+			rows += '</td>';
+			rows += '<td>';
+				rows += '<input type="hidden" name="output_comment[]" value="'+ output_comment_input +'" />';
+				rows += output_comment_input;
+			rows += '</td>';
+			rows += '<td>';
+				rows += '<button type="button" class="btn btn-danger" onClick="deleteRowOutput(this)">Eliminar</button>';
+			rows += '</td>';
+		rows += '</tr>';
+
+		$('#output-table tbody').html(rows);
+	}
+});
+
 function deleteRowEntry(btn, amount){
 	var entry_table_total = $('#entry-table-total').html();
 	entry_table_total = number_format_rollback(entry_table_total);
@@ -83,6 +138,10 @@ function deleteRowEntry(btn, amount){
 	$('#entry_total').val(total);
 	$('#entry-table-total').html(number_format(total, 2));
 
+	btn.closest('tr').remove();
+}
+
+function deleteRowOutput(btn){
 	btn.closest('tr').remove();
 }
 
@@ -100,10 +159,14 @@ $(".money-input").on({
 });
 
 $('#submit-btn').click(function(){
+	var values = $("input[name='output_disperser[]']").map(function(){
+		return $(this).val();
+	}).get();
+
 	var customer = $('#customer').val();
 	var entry_total = $('#entry_total').val();
 
-	if(customer == '' || (entry_total == 0 || entry_total == ''))
+	if(customer == '' || (entry_total == 0 || entry_total == '') || values.length <= 0)
 	{
 		var alert = '<div class="alert alert-danger alert-dismissible" role="alert">';
 				alert += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
@@ -116,6 +179,10 @@ $('#submit-btn').click(function(){
 
 					if(entry_total == 0 || entry_total == ''){
 						alert+= '<li>El monto total de entrada no puede ser 0</li>';
+					}
+
+					if(values.length <= 0){
+						alert+= '<li>Al menos debes ingresar una dispersora de salida</li>';
 					}
 				alert+= '</ul>';
 			alert+= '</div>';

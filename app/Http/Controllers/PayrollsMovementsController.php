@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\PayrollsMovements;
 use App\PayrollsMovementsEntries;
 use App\PayrollsMovementsFacturations;
+use App\PayrollsMovementsOutputs;
 use App\Companies;
 use App\User;
 use Carbon\Carbon;
@@ -38,7 +39,7 @@ class PayrollsMovementsController extends Controller
 
         $permission = Auth::user()->permission;
 
-        if($permission == 1 || $permission == 2 || $permission == 5){
+        if($permission == 1 || $permission == 2 || $permission == 5 || $permission == 10){
             $payrollsmovements = PayrollsMovements::where('status', '!=', 5)->get(['id', 'customer', 'status', 'facturation_payments', 'user', 'created_at']);
         }else if($permission == 3){
             $payrollsmovements = PayrollsMovements::whereExists(function ($query) {
@@ -81,7 +82,7 @@ class PayrollsMovementsController extends Controller
                     $actions .= '<a href='. url('payrolls-movements/'. $payrollmovement->id .'/banks-payment') .' class="text-success"><i class="fa fa-fw fa-usd"></i></a>';
                 }
                 if($permission == 7){
-                    if($payrollmovement->status == 'Bancos - Comprobantes de Pagos'){
+                    if($payrollmovement->status == 'Bancos - Comprobantes de Pagos' || $payrollmovement->status == 'Finalizado'){
                         $actions .= '<a href='. url('payrolls-movements/'. $payrollmovement->id .'/create-facturations-invoices') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
                     }else{
                         $actions .= '<a href='. url('payrolls-movements/'. $payrollmovement->id .'/create-facturations') .' class="text-success"><i class="fa fa-fw fa-file-text-o"></i></a>';
@@ -201,6 +202,16 @@ class PayrollsMovementsController extends Controller
                 'bank' => $request->entry_bank[$i],
                 'account' => $request->entry_account[$i],
                 'status' => 1
+            ]);
+        }
+
+        // Agregar Salidas
+        for($i = 0; $i < count($request->output_disperser); $i++){
+            PayrollsMovementsOutputs::create([
+                'movement' => $payrollmovement->id,
+                'disperser' => $request->output_disperser[$i],
+                'bank_origen' => $request->output_bank_origen[$i],
+                'comment' => $request->output_comment[$i]
             ]);
         }
 
@@ -360,10 +371,12 @@ class PayrollsMovementsController extends Controller
         }
         $total_entries = PayrollsMovementsEntries::where('movement', $id)->sum('quantity');
         $total_entries = number_format($total_entries, 2, '.', ',');
+        
+        $outputs = PayrollsMovementsOutputs::where('movement', $id)->get();
 
         $companies = Companies::lists('name', 'id');
 
-        return view('operations.payrolls-movements.create-facturations', compact('movement', 'entries', 'total_entries', 'companies'));
+        return view('operations.payrolls-movements.create-facturations', compact('movement', 'entries', 'total_entries', 'companies', 'outputs'));
     }
 
     public function storeFacturation(Request $request)
@@ -404,6 +417,8 @@ class PayrollsMovementsController extends Controller
         $total_entries = PayrollsMovementsEntries::where('movement', $id)->sum('quantity');
         $total_entries = number_format($total_entries, 2, '.', ',');
         
+        $outputs = PayrollsMovementsOutputs::where('movement', $id)->get();
+        
         $facturations = PayrollsMovementsFacturations::where('movement', $id)->get();
         foreach($facturations as $facturation){
             $facturation->company_emit = Companies::find($facturation->company_emit)->name;
@@ -413,7 +428,7 @@ class PayrollsMovementsController extends Controller
         $total_facturations = PayrollsMovementsFacturations::where('movement', $id)->where('final_account', 1)->sum('quantity');
         $total_facturations = number_format($total_facturations, 2, '.', ',');
 
-        return view('operations.payrolls-movements.create-facturations-invoices', compact('movement', 'entries', 'total_entries', 'facturations', 'total_facturations'));
+        return view('operations.payrolls-movements.create-facturations-invoices', compact('movement', 'entries', 'total_entries', 'outputs', 'facturations', 'total_facturations'));
     }
 
     public function storeFacturationInvoices(Request $request)
