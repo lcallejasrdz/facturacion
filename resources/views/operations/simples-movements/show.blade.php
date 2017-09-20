@@ -36,10 +36,10 @@
                     <h3 class="panel-title"><i class="fa fa-file-text fa-fw"></i> {{ $movement->id }} - {{ $movement->customer }}</h3>
                 </div>
                 <div class="panel-body">
-                    @if($movement->status != 'Finalizado' && (Auth::user()->permission == 1 || Auth::user()->permission == 2))
+                    @if($movement->status != 'Finalizado' && (Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4))
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                @if((count($entries) == 0 && $movement->status == 'Dispersiones - Transferencias') || $movement->status == 'Administrador - Facturación')
+                                @if((count($entries) == 0 && $movement->status == 'Dispersiones - Transferencias') || ($movement->status == 'Administrador - Facturación'))
                                     {{ Form::button('Eliminar Movimiento', ['id' => 'rollback-btn-modal', 'class' => 'btn btn-danger', 'data-toggle' => 'modal', 'data-target' => '#modalRollback']) }}
                                 @else
                                     @if($movement->status == 'Bancos - Recepción de Pagos')
@@ -78,10 +78,10 @@
                                     <th class="text-center">Monto</th>
                                     <th class="text-center">Banco</th>
                                     <th class="text-center">Cuenta</th>
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4)
                                         <th class="text-center">Facturado</th>
                                     @endif
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5 || Auth::user()->permission == 7)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5 || Auth::user()->permission == 7)
                                         <th class="text-center">Factura</th>
                                     @endif
                                     <th class="text-center">Pago</th>
@@ -94,14 +94,14 @@
                                         <td class="text-right">${{ $entry->quantity }}</td>
                                         <td>{{ $entry->bank }}</td>
                                         <td>{{ $entry->account }}</td>
-                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2)
+                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4)
                                             <td class="text-center">
                                                 @if($entry->invoice != '' && $entry->invoice != null)
                                                     <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
                                                 @endif
                                             </td>
                                         @endif
-                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5 || Auth::user()->permission == 7)
+                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5 || Auth::user()->permission == 7)
                                             <td class="text-center">
                                                 @if($entry->invoice != '' && $entry->invoice != null)
                                                     {{ link_to(URL('/uploads/entries-invoices/'. $entry->invoice), 'Factura', ['class' => 'btn btn-info', 'target' => '_blank']) }}
@@ -122,7 +122,7 @@
                                     <td class="text-right">${{ $total_entries }}</td>
                                     @if(Auth::user()->permission == 7)
                                         <td colspan="4"></td>
-                                    @elseif(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3)
+                                    @elseif(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3)
                                         <td colspan="3"></td>
                                     @else
                                         <td colspan="2"></td>
@@ -144,10 +144,10 @@
                                     <th class="text-center">Banco / Cuenta Recibe</th>
                                     <th class="text-center">Monto</th>
                                     <th class="text-center">Cuenta Final</th>
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
                                         <th class="text-center">Factura</th>
                                     @endif
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
                                         <th class="text-center">Pago</th>
                                     @endif
                                 </tr>
@@ -168,14 +168,14 @@
                                             <td class="text-center">
                                             </td>
                                         @endif
-                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
                                             <td class="text-center">
                                                 @if($facturation->invoice != '' && $facturation->invoice != null)
                                                     {{ link_to(URL('/uploads/facturations-invoices/'. $facturation->invoice), 'Factura', ['class' => 'btn btn-info', 'target' => '_blank']) }}
                                                 @endif
                                             </td>
                                         @endif
-                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
                                             <td>
                                                 @if($facturation->receipt != 0)
                                                     <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
@@ -191,7 +191,7 @@
                                     <td class="text-right">${{ $total_facturations }}</td>
                                     @if(Auth::user()->permission == 3)
                                         <td colspan="2"></td>
-                                    @elseif(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+                                    @elseif(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
                                         <td colspan="3"></td>
                                     @else
                                         <td></td>
@@ -214,7 +214,7 @@
                                     <th class="text-center">Recibe</th>
                                     <th class="text-center">Banco / Cuenta Recibe</th>
                                     <th class="text-center">Comentario</th>
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
                                         <th class="text-center">Pago</th>
                                     @endif
                                 </tr>
@@ -229,7 +229,7 @@
                                         <td>{{ $output->company }}</td>
                                         <td>{{ $output->bank_destiny }}</td>
                                         <td>{{ $output->comment }}</td>
-                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+                                        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
                                             <td class="text-center">
                                                 @if($output->receipt != '' && $output->receipt != null)
                                                     {{ link_to(URL('/uploads/outputs-receipts/'. $output->receipt), 'Comprobante', ['class' => 'btn btn-info', 'target' => '_blank']) }}
@@ -243,7 +243,7 @@
                                 <tr>
                                     <td colspan="3" class="text-right">Total</td>
                                     <td class="text-right">${{ $total_outputs }}</td>
-                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+                                    @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
                                         <td colspan="4"></td>
                                     @else
                                         <td colspan="3"></td>

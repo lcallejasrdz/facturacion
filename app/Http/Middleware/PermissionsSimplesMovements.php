@@ -72,6 +72,8 @@ class PermissionsSimplesMovements
             }else{
                 return Redirect::back();
             }
+        }else if($permission == 4){
+            return $next($request);
         }else if($permission == 5){
             if($routename == 'index'){
                 return $next($request);

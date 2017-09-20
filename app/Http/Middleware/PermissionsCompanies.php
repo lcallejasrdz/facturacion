@@ -35,6 +35,12 @@ class PermissionsCompanies
             }else{
                 return Redirect::back();
             }
+        }else if($permission == 4){
+            if($routename == 'isFacturation'){
+                return $next($request);
+            }else{
+                return Redirect::back();
+            }
         }else if($permission == 5){
             if($routename == 'isFacturation'){
                 return $next($request);

@@ -40,12 +40,12 @@
         <li>
             <a href="{{ URL::to('directs-movements') }}">Lista de Movimientos Directos</a>
         </li>
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('directs-movements/show-finished') }}">Lista de Movimientos Directos Finalizados</a>
             </li>
         @endif
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('directs-movements/create') }}">Agregar Movimiento Directo</a>
             </li>
@@ -59,12 +59,12 @@
         <li>
             <a href="{{ URL::to('simples-movements') }}">Lista de Movimientos Simples</a>
         </li>
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('simples-movements/show-finished') }}">Lista de Movimientos Simples Finalizados</a>
             </li>
         @endif
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('simples-movements/create') }}">Agregar Movimiento Simple</a>
             </li>
@@ -78,12 +78,12 @@
         <li>
             <a href="{{ URL::to('payrolls-movements') }}">Lista de Movimientos Nóminas</a>
         </li>
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('payrolls-movements/show-finished') }}">Lista de Movimientos Nóminas Finalizados</a>
             </li>
         @endif
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('payrolls-movements/create') }}">Agregar Movimiento Nómina</a>
             </li>
@@ -97,12 +97,12 @@
         <li>
             <a href="{{ URL::to('lendings') }}">Lista de Préstamos</a>
         </li>
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 3 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('lendings/show-finished') }}">Lista de Préstamos Finalizados</a>
             </li>
         @endif
-        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 5)
+        @if(Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4 || Auth::user()->permission == 5)
             <li>
                 <a href="{{ URL::to('lendings/create') }}">Agregar Préstamo</a>
             </li>

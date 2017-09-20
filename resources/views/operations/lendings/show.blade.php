@@ -36,7 +36,7 @@
                     <h3 class="panel-title"><i class="fa fa-file-text fa-fw"></i> {{ $movement->id }} - {{ $movement->company_emit }}</h3>
                 </div>
                 <div class="panel-body">
-                    @if($movement->status != 'Finalizado' && (Auth::user()->permission == 1 || Auth::user()->permission == 2))
+                    @if($movement->status != 'Finalizado' && (Auth::user()->permission == 1 || Auth::user()->permission == 2 || Auth::user()->permission == 4))
                         <div class="row">
                             <div class="col-md-12 text-right">
                                 @if($movement->status == 'Bancos - Pago')

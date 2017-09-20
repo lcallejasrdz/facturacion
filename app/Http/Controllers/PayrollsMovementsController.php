@@ -39,7 +39,7 @@ class PayrollsMovementsController extends Controller
 
         $permission = Auth::user()->permission;
 
-        if($permission == 1 || $permission == 2 || $permission == 5 || $permission == 10){
+        if($permission == 1 || $permission == 2 || $permission == 4 || $permission == 5 || $permission == 10){
             $payrollsmovements = PayrollsMovements::where('status', '!=', 5)->get(['id', 'customer', 'status', 'facturation_payments', 'user', 'created_at']);
         }else if($permission == 3){
             $payrollsmovements = PayrollsMovements::whereExists(function ($query) {
@@ -112,7 +112,7 @@ class PayrollsMovementsController extends Controller
 
         $permission = Auth::user()->permission;
 
-        if($permission == 1 || $permission == 2 || $permission == 5){
+        if($permission == 1 || $permission == 2 || $permission == 4 || $permission == 5){
             $payrollsmovements = PayrollsMovements::where('status', 5)->get(['id', 'customer', 'status', 'user', 'created_at']);
         }else if($permission == 3){
             $payrollsmovements = PayrollsMovements::whereExists(function ($query) {

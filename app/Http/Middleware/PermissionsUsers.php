@@ -90,6 +90,8 @@ class PermissionsUsers
             }else{
                 return Redirect::back();
             }
+        }else if($permission == 4){
+            return Redirect::back();
         }else if($permission == 5){
             if($routename == 'show'){
                 $id = Route::current()->getParameter('users');

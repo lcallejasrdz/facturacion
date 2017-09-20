@@ -33,6 +33,8 @@ class PermissionsLendings
             return $next($request);
         }else if($permission == 3){
             return $next($request);
+        }else if($permission == 4){
+            return $next($request);
         }else if($permission == 5){
             return $next($request);
         }else if($permission == 7){
